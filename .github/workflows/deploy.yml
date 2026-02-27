@@ -1,0 +1,31 @@
+name: FTP Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Upload to FTP
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Sync Files via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: 31.31.197.13
+          username: u3100364_demos
+          password: xG7nN0aV8utK1iM3
+          protocol: ftp
+          port: 21
+          local-dir: ./
+          server-dir: ${{ vars.FTP_REMOTE_DIR || '/' }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/README.md
+            **/README*
