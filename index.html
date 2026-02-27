@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Мы женимся! Саша & Алёна — 25 апреля</title>
+  <meta name="description" content="Приглашение на свадьбу Саши и Алёны — 25 апреля, г. Ставрополь, пр. Октябрьской Революции, 1. Начало в 11:00.">
+  <meta property="og:title" content="Мы женимся! Саша & Алёна 💍">
+  <meta property="og:description" content="25 апреля • г. Ставрополь • 11:00">
+  <meta property="og:image" content="https://devrum.ru/demo/13/sasha.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Nunito:wght@300;400;600;700;800;900&family=Pacifico&family=Comfortaa:wght@400;600;700&family=Unbounded:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="concept-a.css">
+  <link rel="stylesheet" href="concept-b.css">
+  <link rel="stylesheet" href="concept-c.css">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { overflow-x: hidden; }
+    img { max-width: 100%; height: auto; display: block; }
+    a { text-decoration: none; color: inherit; }
+    svg { display: block; }
+
+    .hud-switcher {
+      position: fixed;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(0,0,0,0.72);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 50px;
+      padding: 6px 12px;
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+    }
+    .hud-btn {
+      width: 36px; height: 36px;
+      border-radius: 50%; border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.6);
+      font-size: 13px; font-weight: 700;
+      cursor: pointer; transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .hud-btn:hover { color: #fff; background: rgba(255,255,255,0.15); }
+    .hud-btn.active { background: #fff; color: #000; }
+    .hud-sep { color: rgba(255,255,255,0.3); font-size: 12px; }
+    #bg-canvas { pointer-events: none; }
+  </style>
+</head>
+<body class="concept-a">
+
+  <canvas id="bg-canvas"></canvas>
+
+  <nav class="hud-switcher" aria-label="Выбор концепции">
+    <button class="hud-btn active" data-concept="a">A</button>
+    <span class="hud-sep">·</span>
+    <button class="hud-btn" data-concept="b">B</button>
+    <span class="hud-sep">·</span>
+    <button class="hud-btn" data-concept="c">C</button>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Тили-тили тесто…</p>
+
+      <div class="couple-photos">
+        <div class="couple-photo couple-photo--left reveal">
+          <img src="sasha.jpg" alt="Маленький Саша" loading="eager" width="220" height="280">
+          <span class="photo-name photo-name--sasha">Саша</span>
+        </div>
+
+        <div class="couple-heart" aria-hidden="true">
+          <svg viewBox="0 0 80 70" fill="none" xmlns="http://www.w3.org/2000/svg" class="heart-svg">
+            <path d="M40 63S8 44 8 23C8 13.6 15.6 6 25 6C31 6 36.3 9 40 13.7C43.7 9 49 6 55 6C64.4 6 72 13.6 72 23C72 44 40 63 40 63Z" fill="currentColor"/>
+          </svg>
+          <span class="heart-plus">+</span>
+        </div>
+
+        <div class="couple-photo couple-photo--right reveal">
+          <img src="alena.jpg" alt="Маленькая Алёна" loading="eager" width="220" height="280">
+          <span class="photo-name photo-name--alena">Алёна</span>
+        </div>
+      </div>
+
+      <h1 class="hero-title reveal">Мы женимся!</h1>
+
+      <div class="wedding-rings" aria-hidden="true">
+        <svg viewBox="0 0 120 50" fill="none" xmlns="http://www.w3.org/2000/svg" class="rings-svg">
+          <circle cx="40" cy="25" r="20" stroke="#F9A825" stroke-width="4"/>
+          <circle cx="80" cy="25" r="20" stroke="#F9A825" stroke-width="4"/>
+        </svg>
+      </div>
+
+      <div class="hero-date reveal">
+        <p class="date-big">25 апреля</p>
+        <p class="date-time">в 11:00</p>
+      </div>
+    </div>
+
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="24" height="24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </div>
+  </section>
+
+  <!-- ===== COUNTDOWN ===== -->
+  <section class="countdown-section" id="countdown">
+    <div class="container">
+      <p class="section-eyebrow reveal">До нашей свадьбы осталось</p>
+      <div class="countdown-grid reveal">
+        <div class="countdown-item">
+          <span class="countdown-num" id="cntDays">00</span>
+          <span class="countdown-label">дней</span>
+        </div>
+        <div class="countdown-sep" aria-hidden="true">:</div>
+        <div class="countdown-item">
+          <span class="countdown-num" id="cntHours">00</span>
+          <span class="countdown-label">часов</span>
+        </div>
+        <div class="countdown-sep" aria-hidden="true">:</div>
+        <div class="countdown-item">
+          <span class="countdown-num" id="cntMin">00</span>
+          <span class="countdown-label">минут</span>
+        </div>
+        <div class="countdown-sep" aria-hidden="true">:</div>
+        <div class="countdown-item">
+          <span class="countdown-num" id="cntSec">00</span>
+          <span class="countdown-label">секунд</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LETTER ===== -->
+  <section class="letter-section" id="letter">
+    <div class="container letter-inner">
+      <div class="letter-deco" aria-hidden="true"></div>
+      <div class="letter-content reveal">
+        <h2 class="letter-title">Дорогие друзья и родные!</h2>
+        <p>Скоро наступает самый важный день в нашей жизни — мы станем семьёй! Мы будем счастливы видеть вас рядом в этот особенный момент, чтобы вместе создать тёплые воспоминания, которые навсегда останутся в наших сердцах.</p>
+        <p>Вы получили это приглашение, потому что вы — самые важные люди в нашей жизни. Мы очень ждём встречи с вами! 💛</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DATE & LOCATION ===== -->
+  <section class="details-section" id="details">
+    <div class="container details-grid">
+      <div class="detail-card reveal">
+        <div class="detail-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" width="44" height="44">
+            <rect x="6" y="10" width="36" height="32" rx="4"/>
+            <path d="M6 20H42M16 6V14M32 6V14" stroke-linecap="round"/>
+            <circle cx="24" cy="31" r="4" fill="currentColor" stroke="none"/>
+          </svg>
+        </div>
+        <h3>Когда?</h3>
+        <p class="detail-main">25 апреля 2026</p>
+        <p class="detail-sub">Суббота • 11:00</p>
+      </div>
+
+      <div class="detail-card reveal">
+        <div class="detail-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" width="44" height="44">
+            <path d="M24 6C17.37 6 12 11.37 12 18C12 27.75 24 42 24 42C24 42 36 27.75 36 18C36 11.37 30.63 6 24 6Z" stroke-linejoin="round"/>
+            <circle cx="24" cy="18" r="5"/>
+          </svg>
+        </div>
+        <h3>Где?</h3>
+        <p class="detail-main">г. Ставрополь</p>
+        <p class="detail-sub">пр. Октябрьской Революции, 1</p>
+        <a href="https://yandex.ru/maps/?text=Ставрополь,+пр.+Октябрьской+Революции,+1" class="detail-link" target="_blank" rel="noopener">Построить маршрут →</a>
+      </div>
+
+      <div class="detail-card reveal">
+        <div class="detail-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" width="44" height="44">
+            <circle cx="24" cy="24" r="18"/>
+            <path d="M24 12V24L32 28" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Во сколько?</h3>
+        <p class="detail-main">11:00</p>
+        <p class="detail-sub">Сбор гостей</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TIMELINE ===== -->
+  <section class="timeline-section" id="timeline">
+    <div class="container">
+      <h2 class="section-title reveal">Программа дня</h2>
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <span class="tl-time">11:00</span>
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-content">
+            <h3>Сбор гостей</h3>
+            <p>Встречаемся, обнимаемся, фотографируемся 📸</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <span class="tl-time">12:00</span>
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-content">
+            <h3>Торжественная церемония</h3>
+            <p>Самый важный момент — мы говорим «Да!» 💍</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <span class="tl-time">13:00</span>
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-content">
+            <h3>Банкет</h3>
+            <p>Вкусная еда, тосты, танцы и веселье 🥂</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <span class="tl-time">Весь день</span>
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-content">
+            <h3>Фотографии и видео</h3>
+            <p>Делитесь моментами в нашей Telegram-группе ❤️</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DRESS CODE ===== -->
+  <section class="dresscode-section" id="dresscode">
+    <div class="container dresscode-inner">
+      <div class="dresscode-text reveal">
+        <h2 class="section-title">Дресс-код</h2>
+        <p>Нам будет приятно, если вы подберёте наряд в цветовой палитре свадьбы — так праздник станет ещё красивее и гармоничнее!</p>
+        <div class="palette">
+          <span class="palette-dot" style="background: #ff85a1;" title="Розовый"></span>
+          <span class="palette-dot" style="background: #ffcf40;" title="Жёлтый"></span>
+          <span class="palette-dot" style="background: #ffeaa7;" title="Кремовый"></span>
+          <span class="palette-dot" style="background: #fd79a8;" title="Маджента"></span>
+          <span class="palette-dot" style="background: #a29bfe;" title="Лавандовый"></span>
+          <span class="palette-dot" style="background: #55efc4;" title="Мятный"></span>
+          <span class="palette-dot" style="background: #ffffff; border: 2px solid #eee;" title="Белый"></span>
+        </div>
+        <p class="dresscode-note">Строгого ограничения нет — главное ваше хорошее настроение! 🎉</p>
+      </div>
+      <div class="dresscode-illustration reveal" aria-hidden="true">
+        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="dresscode-svg">
+          <!-- Платье -->
+          <path d="M80 40 Q100 50 120 40 L140 160 Q100 170 60 160 Z" stroke="currentColor" stroke-width="3" fill="none" stroke-linejoin="round"/>
+          <!-- Лиф -->
+          <path d="M80 40 Q100 30 120 40 L115 80 Q100 90 85 80 Z" stroke="currentColor" stroke-width="3" fill="none"/>
+          <!-- Цветок -->
+          <circle cx="100" cy="100" r="8" stroke="currentColor" stroke-width="2"/>
+          <ellipse cx="100" cy="88" rx="5" ry="7" stroke="currentColor" stroke-width="2"/>
+          <ellipse cx="100" cy="88" rx="5" ry="7" stroke="currentColor" stroke-width="2" transform="rotate(60 100 100)"/>
+          <ellipse cx="100" cy="88" rx="5" ry="7" stroke="currentColor" stroke-width="2" transform="rotate(120 100 100)"/>
+          <ellipse cx="100" cy="88" rx="5" ry="7" stroke="currentColor" stroke-width="2" transform="rotate(180 100 100)"/>
+          <ellipse cx="100" cy="88" rx="5" ry="7" stroke="currentColor" stroke-width="2" transform="rotate(240 100 100)"/>
+          <ellipse cx="100" cy="88" rx="5" ry="7" stroke="currentColor" stroke-width="2" transform="rotate(300 100 100)"/>
+          <!-- Корона жениха -->
+          <path d="M50 50 L55 35 L65 45 L75 30 L80 50 Z" stroke="currentColor" stroke-width="2" fill="none"/>
+          <rect x="48" y="50" width="34" height="8" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+          <!-- Сердечко -->
+          <path d="M155 60 C155 55 160 50 165 53 C170 50 175 55 175 60 C175 68 165 76 165 76 C165 76 155 68 155 60Z" stroke="currentColor" stroke-width="2" fill="none"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MEMORIES ===== -->
+  <section class="memories-section" id="memories">
+    <div class="container memories-inner">
+      <div class="memories-icon" aria-hidden="true">
+        <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="2" width="54" height="54">
+          <path d="M30 5C16.19 5 5 16.19 5 30C5 43.81 16.19 55 30 55C43.81 55 55 43.81 55 30C55 16.19 43.81 5 30 5Z"/>
+          <path d="M38.9 20.3L24.2 24.2L20.3 38.9L35 35L38.9 20.3Z" stroke-linejoin="round"/>
+          <circle cx="30" cy="30" r="3"/>
+        </svg>
+      </div>
+      <div class="memories-text reveal">
+        <h2 class="section-title">Делитесь воспоминаниями!</h2>
+        <p>Чтобы ни один трогательный момент не был потерян — мы создали Telegram-группу для обмена фотографиями и видео с праздника.</p>
+        <a href="https://t.me/" class="btn btn-tg" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.869 4.326-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.83.941z"/></svg>
+          Вступить в группу
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== RSVP FORM ===== -->
+  <section class="rsvp-section" id="rsvp">
+    <div class="container rsvp-inner">
+      <div class="rsvp-heading reveal">
+        <h2 class="section-title">Анкета гостя</h2>
+        <p>Пожалуйста, заполните анкету до <strong>10 апреля</strong>, чтобы мы успели подготовиться к встрече 🌸</p>
+      </div>
+      <form class="rsvp-form reveal" id="rsvpForm" novalidate>
+        <div class="form-group">
+          <label for="rsvpName">Ваше имя и фамилия <span aria-hidden="true">*</span></label>
+          <input type="text" id="rsvpName" name="name" placeholder="Иванова Мария" required autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label for="rsvpPhone">Телефон <span aria-hidden="true">*</span></label>
+          <input type="tel" id="rsvpPhone" name="phone" placeholder="+7 (___) ___-__-__" required autocomplete="tel">
+        </div>
+
+        <div class="form-group">
+          <label>Подтверждаете присутствие?</label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="attend" value="yes" required>
+              <span>✅ Да, с радостью приду!</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="attend" value="no">
+              <span>😔 К сожалению, не смогу</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Придёте с парой?</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="pair" value="no"> <span>Нет, приду один/одна</span></label>
+            <label class="radio-label"><input type="radio" name="pair" value="yes"> <span>Да, мы придём вдвоём</span></label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Предпочтения в напитках (можно несколько)</label>
+          <div class="checkbox-group">
+            <label class="check-label"><input type="checkbox" name="drinks" value="white-dry"> Белое сухое вино</label>
+            <label class="check-label"><input type="checkbox" name="drinks" value="white-sweet"> Белое полусладкое</label>
+            <label class="check-label"><input type="checkbox" name="drinks" value="red-dry"> Красное сухое вино</label>
+            <label class="check-label"><input type="checkbox" name="drinks" value="red-sweet"> Красное полусладкое</label>
+            <label class="check-label"><input type="checkbox" name="drinks" value="sparkling"> Игристое (брют)</label>
+            <label class="check-label"><input type="checkbox" name="drinks" value="whiskey"> Виски</label>
+            <label class="check-label"><input type="checkbox" name="drinks" value="none"> Не пью алкоголь</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="rsvpWish">Пожелания молодожёнам 💛</label>
+          <textarea id="rsvpWish" name="wish" rows="3" placeholder="Напишите ваши тёплые слова…"></textarea>
+        </div>
+
+        <div class="form-consent">
+          <input type="checkbox" id="consent" name="consent" required>
+          <label for="consent">Я соглашаюсь на <a href="/privacy">обработку персональных данных</a></label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full">
+          💌 Отправить анкету
+        </button>
+        <p class="form-note">Мы с нетерпением ждём вас!</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== CLOSING ===== -->
+  <section class="closing-section">
+    <div class="container closing-inner">
+      <div class="closing-hearts" aria-hidden="true">
+        <span>💛</span><span>💗</span><span>💛</span><span>💗</span><span>💛</span>
+      </div>
+      <h2 class="closing-title reveal">С любовью,<br><em>Саша & Алёна!</em></h2>
+      <div class="closing-photos reveal">
+        <img src="sasha.jpg" alt="Саша" class="closing-photo closing-photo--left" loading="lazy" width="160" height="200">
+        <div class="closing-rings" aria-hidden="true">
+          <svg viewBox="0 0 120 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="40" cy="25" r="20" stroke="currentColor" stroke-width="3"/>
+            <circle cx="80" cy="25" r="20" stroke="currentColor" stroke-width="3"/>
+          </svg>
+        </div>
+        <img src="alena.jpg" alt="Алёна" class="closing-photo closing-photo--right" loading="lazy" width="160" height="200">
+      </div>
+      <p class="closing-date reveal">25 апреля • г. Ставрополь</p>
+    </div>
+  </section>
+
+  <script>
+    // HUD Switcher
+    const hudBtns = document.querySelectorAll('.hud-btn');
+    let currentConcept = 'a';
+    let animFrame = null;
+    let particles = [];
+
+    hudBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const c = btn.dataset.concept;
+        if (c === currentConcept) return;
+        currentConcept = c;
+        document.body.className = `concept-${c}`;
+        hudBtns.forEach(b => b.classList.toggle('active', b.dataset.concept === c));
+        initCanvas();
+      });
+    });
+
+    // Canvas - hearts and confetti
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    function initCanvas() {
+      if (animFrame) cancelAnimationFrame(animFrame);
+      resizeCanvas();
+      particles = [];
+
+      const colors = {
+        a: ['#ff85a1','#ffcf40','#a29bfe','#55efc4','#fd79a8'],
+        b: ['#ff4da6','#ffdb4d','#ff85c2','#ffd166','#ff6b9d'],
+        c: ['#ff0080','#ff6b00','#00c9ff','#00ff88','#ffff00']
+      };
+      const palette = colors[currentConcept];
+
+      for (let i = 0; i < 35; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: -Math.random() * 0.6 - 0.1,
+          r: Math.random() * 6 + 2,
+          o: Math.random() * 0.3 + 0.05,
+          color: palette[Math.floor(Math.random() * palette.length)],
+          type: Math.random() > 0.5 ? 'heart' : 'circle',
+          wobble: Math.random() * Math.PI * 2,
+          wobbleSpeed: (Math.random() - 0.5) * 0.02
+        });
+      }
+      animateParticles();
+    }
+
+    function drawHeart(ctx, x, y, size) {
+      ctx.beginPath();
+      ctx.moveTo(x, y + size * 0.3);
+      ctx.bezierCurveTo(x, y, x - size, y, x - size, y + size * 0.4);
+      ctx.bezierCurveTo(x - size, y + size * 0.8, x, y + size * 1.1, x, y + size * 1.3);
+      ctx.bezierCurveTo(x, y + size * 1.1, x + size, y + size * 0.8, x + size, y + size * 0.4);
+      ctx.bezierCurveTo(x + size, y, x, y, x, y + size * 0.3);
+      ctx.closePath();
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.wobble += p.wobbleSpeed;
+        p.x += p.vx + Math.sin(p.wobble) * 0.3;
+        p.y += p.vy;
+        if (p.y < -20) { p.y = canvas.height + 20; p.x = Math.random() * canvas.width; }
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        ctx.save();
+        ctx.globalAlpha = p.o;
+        ctx.fillStyle = p.color;
+        if (p.type === 'heart') {
+          ctx.translate(p.x, p.y);
+          drawHeart(ctx, 0, -p.r, p.r * 0.8);
+          ctx.fill();
+        } else {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.restore();
+      });
+      animFrame = requestAnimationFrame(animateParticles);
+    }
+
+    window.addEventListener('resize', () => { resizeCanvas(); initCanvas(); });
+    window.addEventListener('load', () => setTimeout(initCanvas, 400));
+
+    // Countdown
+    function updateCountdown() {
+      const wedding = new Date('2026-04-25T11:00:00');
+      const now = new Date();
+      const diff = wedding - now;
+      if (diff <= 0) {
+        document.getElementById('cntDays').textContent = '00';
+        document.getElementById('cntHours').textContent = '00';
+        document.getElementById('cntMin').textContent = '00';
+        document.getElementById('cntSec').textContent = '00';
+        return;
+      }
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      document.getElementById('cntDays').textContent = String(d).padStart(2,'0');
+      document.getElementById('cntHours').textContent = String(h).padStart(2,'0');
+      document.getElementById('cntMin').textContent = String(m).padStart(2,'0');
+      document.getElementById('cntSec').textContent = String(s).padStart(2,'0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Scroll Reveal
+    const ro = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+    // Form
+    document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const consent = this.querySelector('[name="consent"]');
+      if (!consent.checked) { consent.closest('.form-consent').classList.add('consent-error'); return; }
+      const btn = this.querySelector('button[type="submit"]');
+      btn.textContent = '✅ Анкета отправлена! Ждём вас!';
+      btn.disabled = true;
+    });
+  </script>
+</body>
+</html>
